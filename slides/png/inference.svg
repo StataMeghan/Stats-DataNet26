@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 430" width="100%" height="100%">
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3864b4" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#80cfad" />
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b93813" />
+    </marker>
+    <marker id="arrowYellow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#E4962D" />
+    </marker>
+
+    <!-- School Icon Definition -->
+    <g id="school">
+      <!-- Building Base -->
+      <rect x="-10" y="-2" width="20" height="14" fill="#E4962D" rx="1" />
+      <!-- Roof -->
+      <polygon points="-12,-2 0,-12 12,-2" fill="#2c3e50" />
+      <!-- Door -->
+      <rect x="-3" y="6" width="6" height="6" fill="#2c3e50" />
+    </g>
+        <g id="schools">
+      <!-- Building Base -->
+      <rect x="-10" y="-2" width="20" height="14" fill="#b93813" rx="1" />
+      <!-- Roof -->
+      <polygon points="-12,-2 0,-12 12,-2" fill="#2c3e50" />
+      <!-- Door -->
+      <rect x="-3" y="6" width="6" height="6" fill="#2c3e50" />
+    </g>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 24px; font-weight: bold; text-anchor: middle; fill: #FFF; }
+    .label { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 22px; text-anchor: middle; fill: #FFF; }
+    .dashed-line { fill: none; stroke-width: 4; stroke-dasharray: 12 12; }
+  </style>
+
+  <!-- =============================== -->
+  <!-- LEFT SIDE: STUDENTS             -->
+  <!-- =============================== -->
+  
+  <text x="250" y="40" class="title">ANALYSIS OF STUDENTS</text>
+
+  <!-- Population (Blue) -->
+  <circle cx="160" cy="220" r="130" fill="#3864b4" />
+  
+  <!-- Individual Dots in Population -->
+  <circle cx="100" cy="160" r="4" fill="#a4d1b8" />
+  <circle cx="140" cy="120" r="4" fill="#a4d1b8" />
+  <circle cx="190" cy="150" r="4" fill="#a4d1b8" />
+  <circle cx="230" cy="190" r="4" fill="#a4d1b8" />
+  <circle cx="150" cy="240" r="4" fill="#a4d1b8" />
+  <circle cx="100" cy="260" r="4" fill="#a4d1b8" />
+  <circle cx="200" cy="280" r="4" fill="#a4d1b8" />
+  <circle cx="140" cy="300" r="4" fill="#a4d1b8" />
+  <circle cx="240" cy="250" r="4" fill="#a4d1b8" />
+  <circle cx="70" cy="210" r="4" fill="#a4d1b8" />
+  <circle cx="180" cy="200" r="4" fill="#a4d1b8" />
+  <!-- New Student Dots -->
+  <circle cx="120" cy="180" r="4" fill="#a4d1b8" />
+  <circle cx="80" cy="240" r="4" fill="#a4d1b8" />
+  <circle cx="220" cy="130" r="4" fill="#a4d1b8" />
+  <circle cx="250" cy="220" r="4" fill="#a4d1b8" />
+  <circle cx="170" cy="110" r="4" fill="#a4d1b8" />
+  <circle cx="100" cy="300" r="4" fill="#a4d1b8" />
+  <circle cx="210" cy="320" r="4" fill="#a4d1b8" />
+  <circle cx="180" cy="250" r="4" fill="#a4d1b8" />
+  <circle cx="130" cy="330" r="4" fill="#a4d1b8" />
+  <circle cx="70" cy="170" r="4" fill="#a4d1b8" />
+  <circle cx="260" cy="260" r="4" fill="#a4d1b8" />
+  <circle cx="160" cy="170" r="4" fill="#a4d1b8" />
+
+  <!-- Sample (Green) -->
+  <circle cx="470" cy="220" r="45" fill="#80cfad" />
+  
+  <!-- Individual Dots in Sample -->
+  <circle cx="460" cy="210" r="3.5" fill="#1b458b" />
+  <circle cx="480" cy="225" r="3.5" fill="#1b458b" />
+  <circle cx="465" cy="235" r="3.5" fill="#1b458b" />
+  <!-- New Sample Dots -->
+  <circle cx="450" cy="225" r="3.5" fill="#1b458b" />
+  <circle cx="475" cy="205" r="3.5" fill="#1b458b" />
+  <circle cx="490" cy="215" r="3.5" fill="#1b458b" />
+  <circle cx="460" cy="245" r="3.5" fill="#1b458b" />
+  <circle cx="485" cy="240" r="3.5" fill="#1b458b" />
+
+  <!-- Arrows -->
+  <path d="M 275 140 Q 375 100 450 180" class="dashed-line" stroke="#3864b4" marker-end="url(#arrowBlue)" />
+    <text x="365" y="120" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#3864b4">Random selection</text>
+  <path d="M 450 260 Q 375 340 275 300" class="dashed-line" stroke="#80cfad" marker-end="url(#arrowGreen)" />
+      <text x="365" y="340" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#80cfad">Inference</text>
+
+  <!-- Labels -->
+  <text x="160" y="390" class="label">Population of</text>
+  <text x="160" y="420" class="label">students</text>
+  <text x="470" y="390" class="label">Sample of</text>
+  <text x="470" y="420" class="label">students</text>
+
+
+  <!-- =============================== -->
+  <!-- RIGHT SIDE: SCHOOLS             -->
+  <!-- =============================== -->
+  
+  <text x="790" y="40" class="title">ANALYSIS OF SCHOOLS</text>
+
+  <!-- Population (Red) -->
+  <circle cx="700" cy="220" r="130" fill="#b93813" />
+  
+  <!-- Schools in Population -->
+  <use href="#school" x="630" y="150" />
+  <use href="#school" x="720" y="130" />
+  <use href="#school" x="760" y="190" />
+  <use href="#school" x="710" y="270" />
+  <use href="#school" x="640" y="250" />
+  <use href="#school" x="680" y="200" />
+  <!-- New Schools in Population -->
+  <use href="#school" x="590" y="200" />
+  <use href="#school" x="610" y="280" />
+  <use href="#school" x="770" y="130" />
+  <use href="#school" x="800" y="250" />
+  <use href="#school" x="740" y="310" />
+  <use href="#school" x="660" y="300" />
+  <use href="#school" x="690" y="120" />
+  <use href="#school" x="600" y="170" />
+
+  <!-- Sample (Orange) -->
+  <circle cx="1000" cy="220" r="45" fill="#E4962D" />
+  
+  <!-- Schools in Sample -->
+  <use href="#schools" x="975" y="205" />
+  <use href="#schools" x="1010" y="235" />
+  <!-- New Schools in Sample -->
+  <use href="#schools" x="975" y="235" />
+  <use href="#schools" x="1020" y="210" />
+  <use href="#schools" x="1000" y="190" />
+
+  <!-- Arrows -->
+  <path d="M 815 140 Q 915 100 980 180" class="dashed-line" stroke="#b93813" marker-end="url(#arrowRed)" />
+        <text x="885" y="120" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#b93813">Random selection</text>
+  <path d="M 980 260 Q 915 340 815 300" class="dashed-line" stroke="#E4962D" marker-end="url(#arrowYellow)" />
+      <text x="885" y="340" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#E4962D">Inference</text>
+
+  <!-- Labels -->
+  <text x="700" y="390" class="label">Population of</text>
+  <text x="700" y="420" class="label">schools</text>
+  <text x="1000" y="390" class="label">Sample of</text>
+  <text x="1000" y="420" class="label">schools</text>
+</svg>

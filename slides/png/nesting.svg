@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" style="width: 100%; max-height: 75vh;">
+  <defs>
+    <!-- Arrowhead markers optimized for dark mode -->
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94A3B8"/>
+    </marker>
+  </defs>
+
+  <style>
+    /* Luminous blue for titles to contrast with dark backgrounds */
+    .diagram-title { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 22px; font-weight: 400; fill: #4CA6E8; text-anchor: middle; }
+    
+    /* Light silver for the side labels */
+    .label-main { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; fill: #E2E8F0; text-anchor: start; dominant-baseline: middle; }
+    .label-italic { font-style: italic; font-weight: 300; }
+    
+    /* Solid Stata Blue boxes for the top hierarchy */
+    .box-top { fill: #1A5E96; stroke: #4CA6E8; stroke-width: 1.5; }
+    
+    /* Subtle, semi-transparent boxes for the bottom hierarchy */
+    .box-bot { fill: rgba(255, 255, 255, 0.08); stroke: #64748B; stroke-width: 1.5; }
+    
+    /* Crisp white text for all nodes */
+    .text-top { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 500; fill: #FFFFFF; text-anchor: middle; dominant-baseline: middle; letter-spacing: 0.02em; }
+    .text-bot { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; fill: #F8FAFC; text-anchor: middle; dominant-baseline: middle; letter-spacing: 0.02em; }
+    
+    /* Lightened paths and dividers */
+    .path { stroke: #94A3B8; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+    .divider { stroke: #475569; stroke-width: 2; stroke-dasharray: 6 6; }
+  </style>
+
+  <!-- ================= SECTION 1: CROSS-SECTIONAL ================= -->
+  <text x="350" y="50" class="diagram-title">Children nested in families</text>
+
+  <!-- Top Level Nodes (Families) -->
+  <rect x="100" y="100" width="100" height="40" rx="8" class="box-top"/>
+  <text x="150" y="120" class="text-top">Patel</text>
+
+  <rect x="300" y="100" width="100" height="40" rx="8" class="box-top"/>
+  <text x="350" y="120" class="text-top">Jones</text>
+
+  <rect x="500" y="100" width="100" height="40" rx="8" class="box-top"/>
+  <text x="550" y="120" class="text-top">Smith</text>
+
+  <text x="660" y="120" class="label-main">Families <tspan class="label-italic">j</tspan></text>
+
+  <!-- Connectors -->
+  <path d="M 150 140 L 100 192" class="path"/> <!-- Patel to Rod -->
+  <path d="M 150 140 L 200 192" class="path"/> <!-- Patel to Mel -->
+  <path d="M 350 140 L 300 192" class="path"/> <!-- Jones to Tom -->
+  <path d="M 350 140 L 400 192" class="path"/> <!-- Jones to Jim -->
+  <path d="M 550 140 L 500 192" class="path"/> <!-- Smith to Sam -->
+  <path d="M 550 140 L 600 192" class="path"/> <!-- Smith to Pat -->
+
+  <!-- Bottom Level Nodes (Children) -->
+  <rect x="65" y="195" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="100" y="215" class="text-bot">Rod</text>
+
+  <rect x="165" y="195" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="200" y="215" class="text-bot">Mel</text>
+
+  <rect x="265" y="195" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="300" y="215" class="text-bot">Tom</text>
+
+  <rect x="365" y="195" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="400" y="215" class="text-bot">Jim</text>
+
+  <rect x="465" y="195" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="500" y="215" class="text-bot">Sam</text>
+
+  <rect x="565" y="195" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="600" y="215" class="text-bot">Pat</text>
+
+  <text x="660" y="215" class="label-main">Children <tspan class="label-italic">i</tspan></text>
+
+  <!-- Horizontal Divider -->
+  <line x1="50" y1="280" x2="750" y2="280" class="divider" />
+
+  <!-- ================= SECTION 2: LONGITUDINAL ================= -->
+  <text x="350" y="340" class="diagram-title">Occasions nested in subjects</text>
+
+  <!-- Top Level Nodes (Subjects) -->
+  <rect x="100" y="390" width="100" height="40" rx="8" class="box-top"/>
+  <text x="150" y="410" class="text-top">Eric</text>
+
+  <rect x="300" y="390" width="100" height="40" rx="8" class="box-top"/>
+  <text x="350" y="410" class="text-top">Susan</text>
+
+  <rect x="500" y="390" width="100" height="40" rx="8" class="box-top"/>
+  <text x="550" y="410" class="text-top">John</text>
+
+  <text x="660" y="410" class="label-main">Subjects <tspan class="label-italic">j</tspan></text>
+
+  <!-- Connectors -->
+  <path d="M 150 430 L 100 482" class="path"/> <!-- Eric to 2 -->
+  <path d="M 150 430 L 200 482" class="path"/> <!-- Eric to 3 -->
+  <path d="M 350 430 L 300 482" class="path"/> <!-- Susan to 1 -->
+  <path d="M 350 430 L 400 482" class="path"/> <!-- Susan to 3 -->
+  <path d="M 550 430 L 500 482" class="path"/> <!-- John to 1 -->
+  <path d="M 550 430 L 600 482" class="path"/> <!-- John to 2 -->
+
+  <!-- Bottom Level Nodes (Occasions) -->
+  <rect x="65" y="485" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="100" y="505" class="text-bot">2</text>
+
+  <rect x="165" y="485" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="200" y="505" class="text-bot">3</text>
+
+  <rect x="265" y="485" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="300" y="505" class="text-bot">1</text>
+
+  <rect x="365" y="485" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="400" y="505" class="text-bot">3</text>
+
+  <rect x="465" y="485" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="500" y="505" class="text-bot">1</text>
+
+  <rect x="565" y="485" width="70" height="40" rx="6" class="box-bot"/>
+  <text x="600" y="505" class="text-bot">2</text>
+
+  <text x="660" y="505" class="label-main">Occasions <tspan class="label-italic">i</tspan></text>
+
+</svg>
