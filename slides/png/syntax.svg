@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120" width="300" height="120">
-  <!-- Background is transparent -->
-  <rect width="300" height="120" fill="transparent"/>
-  
-  <!-- Text matching the stata-code CSS class -->
-  <text x="50%" y="50%" font-family="monospace" font-weight="700" font-size="32" fill="#1A5E96" text-anchor="middle" dominant-baseline="middle">
-    mixed vs xtreg
-  </text>
-</svg>
