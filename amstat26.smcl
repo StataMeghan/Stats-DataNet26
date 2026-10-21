@@ -1,0 +1,738 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\Training\Documents\Amstat\2026\amstat26.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}20 Oct 2026, 17:44:13
+
+{com}. import excel "C:\Users\Training\Documents\Amstat\2026\STATA Lizards Data.xlsx", sheet("Sheet1") firstrow case(lower)
+{res}{text}(12 vars, 160 obs)
+
+{com}. cd "C:\Users\Training\Documents\Amstat\2026"
+{res}C:\Users\Training\Documents\Amstat\2026
+
+{com}. ls
+{txt}  <dir>  10/20/26 17:44  {res}.                 
+{txt}  <dir>  10/20/26 15:03  {res}..                
+{txt}   0.2k  10/20/26 17:44  {res}amstat26.smcl     
+{txt}  19.2k  10/20/26 15:02  {res}STATA Lizards Data.xlsx
+{txt}   5.1k  10/20/26 15:02  {res}Stata_Oct20.do    
+{txt}   0.2k  10/20/26 15:30  {res}~$STATA Lizards Data.xlsx
+{txt}   5.1k  10/20/26 17:44  {res}~Stata_Oct20.do.stswp
+
+{com}. import excel "STATA Lizards Data.xlsx", firstrow case(lower)
+{res}{err}no; data in memory would be lost
+{res}{txt}{search r(4), local:r(4);}
+
+{com}. clear
+
+. import excel "STATA Lizards Data.xlsx", firstrow case(lower)
+{res}{text}(12 vars, 160 obs)
+
+{com}. rename massg mass
+{res}
+{com}. rename svlmm svl
+{res}
+{com}. label variable svl "Snout-vent length (mm)"
+
+. do "C:\Users\Training\AppData\Local\Temp\STD2594_000000.tmp"
+{txt}
+{com}. rename hindlimblengthmm hindlimb
+{res}{txt}
+{com}. rename hindspanmm hindspan
+{res}{txt}
+{com}. rename forelimbmm forelimb
+{res}{txt}
+{com}. rename forespanmm forespan
+{res}{txt}
+{com}. rename gapewidthmm gape
+{res}{txt}
+{com}. rename headdepthmm head
+{res}{txt}
+{com}. rename toepadwidthmm toepad
+{res}{txt}
+{com}. rename taillengthmm tail
+{res}{txt}
+{com}. rename island island_str
+{res}{txt}
+{com}. rename habitat habitat_str
+{res}{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. generate total = svl + tail
+{txt}(62 missing values generated)
+
+{com}. label variable total "Total length (mm)"
+
+. encode island_str, generate(island)
+
+. encode habitat_str, generate(habitat)
+
+. notes _dta: See lizard_data.do
+{res}
+{com}. notes _dta: Created on TS
+{res}
+{com}. notes
+{res}
+_dta:
+{txt}{p 2 6}
+1.
+See lizard_data.do
+{p_end}
+{p 2 6}
+2.
+Created on 20 Oct 2026 18:03
+{p_end}
+
+{com}. label data "Assignment 10/20"
+
+. compress
+  {txt}variable {bf}{res}total{sf}{txt} was {bf}{res}float{sf}{txt} now {bf}{res}int{sf}
+  {txt}variable {bf}{res}island{sf}{txt} was {bf}{res}long{sf}{txt} now {bf}{res}byte{sf}
+  {txt}variable {bf}{res}habitat{sf}{txt} was {bf}{res}long{sf}{txt} now {bf}{res}byte{sf}
+{txt}  (1,280 bytes saved)
+
+{com}. save lizards
+{txt}{p 0 4 2}
+file {bf}
+lizards.dta{rm}
+saved
+{p_end}
+
+{com}. ls
+{txt}  <dir>  10/20/26 18:05  {res}.                 
+{txt}  <dir>  10/20/26 15:03  {res}..                
+{txt}   0.2k  10/20/26 17:44  {res}amstat26.smcl     
+{txt}  25.9k  10/20/26 18:05  {res}lizards.dta       
+{txt}   0.3k  10/20/26 18:01  {res}lizard_data.do    
+{txt}  19.2k  10/20/26 15:02  {res}STATA Lizards Data.xlsx
+{txt}   5.1k  10/20/26 15:02  {res}Stata_Oct20.do    
+{txt}   0.2k  10/20/26 15:30  {res}~$STATA Lizards Data.xlsx
+{txt}   5.1k  10/20/26 17:44  {res}~Stata_Oct20.do.stswp
+
+{com}. clear
+
+. use lizards
+{txt}(Assignment 10/20)
+
+{com}. describe
+
+{txt}Contains data from {res}lizards.dta
+{txt} Observations:{res}           160                  Assignment 10/20
+{txt}    Variables:{res}            15                  20 Oct 2026 18:05
+                                              (_dta has notes)
+{txt}{hline}
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+{hline}
+{p 0 48}{res}{bind:island_str     }{txt}{bind: str14   }{bind:%14s      }{space 1}{bind:         }{bind:  }{res}{res}Island{p_end}
+{p 0 48}{bind:habitat_str    }{txt}{bind: str9    }{bind:%9s       }{space 1}{bind:         }{bind:  }{res}{res}Habitat{p_end}
+{p 0 48}{bind:mass           }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Mass (g){p_end}
+{p 0 48}{bind:svl            }{txt}{bind: byte    }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Snout-vent length (mm){p_end}
+{p 0 48}{bind:hindlimb       }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Hindlimb length (mm){p_end}
+{p 0 48}{bind:hindspan       }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Hindspan (mm){p_end}
+{p 0 48}{bind:forelimb       }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Forelimb (mm){p_end}
+{p 0 48}{bind:forespan       }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Forespan (mm){p_end}
+{p 0 48}{bind:gape           }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Gape width (mm){p_end}
+{p 0 48}{bind:head           }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Head depth (mm){p_end}
+{p 0 48}{bind:toepad         }{txt}{bind: double  }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Toe pad width (mm){p_end}
+{p 0 48}{bind:tail           }{txt}{bind: int     }{bind:%10.0g    }{space 1}{bind:         }{bind:  }{res}{res}Tail length (mm){p_end}
+{p 0 48}{bind:total          }{txt}{bind: int     }{bind:%9.0g     }{space 1}{bind:         }{bind:  }{res}{res}Total length (mm){p_end}
+{p 0 48}{bind:island         }{txt}{bind: byte    }{bind:%14.0g    }{space 1}{bind:island   }{bind:  }{res}{res}Island{p_end}
+{p 0 48}{bind:habitat        }{txt}{bind: byte    }{bind:%9.0g     }{space 1}{bind:habitat  }{bind:  }{res}{res}Habitat{p_end}
+{txt}{hline}
+Sorted by: 
+
+{com}. codebook habitat*
+
+{txt}{hline}
+{res}habitat_str{right:Habitat}
+{txt}{hline}
+
+{col 19}Type: String ({res}str9{txt})
+
+{col 10}Unique values: {res}2{col 51}{txt}Missing "": {res}0{txt}/{res}160
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}        79{col 32}"Disturbed"
+{col 20}        81{col 32}"Natural"
+
+{txt}{hline}
+{res}habitat{right:Habitat}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}byte{txt})
+{ralign 22:Label}: {res:habitat}
+
+{col 18}Range: [{res}1{txt},{res}2{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}160
+
+{txt}{col 13}Tabulation: Freq.   Numeric  Label
+{col 20}{res}        79{col 32}       1{col 42}{txt}Disturbed
+{col 20}{res}        81{col 32}       2{col 42}{txt}Natural
+
+{com}. list island_str habitat_str mass
+{txt}
+     {c TLC}{hline 16}{c -}{hline 11}{c -}{hline 6}{c TRC}
+     {c |} {res}    island_str   habitat~r   mass {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+  1. {c |} {res}         Exuma     Natural    4.8 {txt}{c |}
+  2. {c |} {res}         Exuma     Natural    2.7 {txt}{c |}
+  3. {c |} {res}         Exuma     Natural    4.7 {txt}{c |}
+  4. {c |} {res}         Exuma     Natural    4.3 {txt}{c |}
+  5. {c |} {res}         Exuma     Natural    5.9 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+  6. {c |} {res}         Exuma     Natural    2.8 {txt}{c |}
+  7. {c |} {res}         Exuma     Natural    4.2 {txt}{c |}
+  8. {c |} {res}         Exuma     Natural    3.8 {txt}{c |}
+  9. {c |} {res}         Exuma     Natural    3.8 {txt}{c |}
+ 10. {c |} {res}         Exuma     Natural    4.9 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 11. {c |} {res}         Exuma     Natural    4.7 {txt}{c |}
+ 12. {c |} {res}         Exuma     Natural      5 {txt}{c |}
+ 13. {c |} {res}         Exuma     Natural    4.2 {txt}{c |}
+ 14. {c |} {res}         Exuma     Natural    3.8 {txt}{c |}
+ 15. {c |} {res}         Exuma     Natural    4.2 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 16. {c |} {res}         Exuma     Natural    5.3 {txt}{c |}
+ 17. {c |} {res}         Exuma     Natural    5.2 {txt}{c |}
+ 18. {c |} {res}         Exuma     Natural    6.2 {txt}{c |}
+ 19. {c |} {res}         Exuma     Natural    4.3 {txt}{c |}
+ 20. {c |} {res}         Exuma     Natural    4.8 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 21. {c |} {res}         Exuma   Disturbed      6 {txt}{c |}
+ 22. {c |} {res}         Exuma   Disturbed    9.2 {txt}{c |}
+ 23. {c |} {res}         Exuma   Disturbed      5 {txt}{c |}
+ 24. {c |} {res}         Exuma   Disturbed    7.8 {txt}{c |}
+ 25. {c |} {res}         Exuma   Disturbed    7.5 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 26. {c |} {res}         Exuma   Disturbed    8.6 {txt}{c |}
+ 27. {c |} {res}         Exuma   Disturbed    4.6 {txt}{c |}
+ 28. {c |} {res}         Exuma   Disturbed      7 {txt}{c |}
+ 29. {c |} {res}         Exuma   Disturbed    7.8 {txt}{c |}
+ 30. {c |} {res}         Exuma   Disturbed    4.7 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 31. {c |} {res}         Exuma   Disturbed    8.4 {txt}{c |}
+ 32. {c |} {res}         Exuma   Disturbed    6.6 {txt}{c |}
+ 33. {c |} {res}         Exuma   Disturbed    4.4 {txt}{c |}
+ 34. {c |} {res}         Exuma   Disturbed      8 {txt}{c |}
+ 35. {c |} {res}         Exuma   Disturbed    7.4 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 36. {c |} {res}         Exuma   Disturbed    7.8 {txt}{c |}
+ 37. {c |} {res}         Exuma   Disturbed    8.9 {txt}{c |}
+ 38. {c |} {res}         Exuma   Disturbed      9 {txt}{c |}
+ 39. {c |} {res}         Exuma   Disturbed    5.4 {txt}{c |}
+ 40. {c |} {res}New Providence     Natural    3.6 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 41. {c |} {res}New Providence     Natural    2.2 {txt}{c |}
+ 42. {c |} {res}New Providence     Natural    2.8 {txt}{c |}
+ 43. {c |} {res}New Providence     Natural    4.8 {txt}{c |}
+ 44. {c |} {res}New Providence     Natural    3.2 {txt}{c |}
+ 45. {c |} {res}New Providence     Natural    2.7 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 46. {c |} {res}New Providence     Natural    3.8 {txt}{c |}
+ 47. {c |} {res}New Providence     Natural    3.7 {txt}{c |}
+ 48. {c |} {res}New Providence     Natural    3.8 {txt}{c |}
+ 49. {c |} {res}New Providence     Natural    2.4 {txt}{c |}
+ 50. {c |} {res}New Providence     Natural    3.7 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 51. {c |} {res}New Providence     Natural    2.6 {txt}{c |}
+ 52. {c |} {res}New Providence     Natural    2.8 {txt}{c |}
+ 53. {c |} {res}New Providence     Natural    3.4 {txt}{c |}
+ 54. {c |} {res}New Providence     Natural    3.2 {txt}{c |}
+ 55. {c |} {res}New Providence     Natural      2 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 56. {c |} {res}New Providence     Natural      3 {txt}{c |}
+ 57. {c |} {res}New Providence     Natural    3.4 {txt}{c |}
+ 58. {c |} {res}New Providence     Natural    3.8 {txt}{c |}
+ 59. {c |} {res}New Providence     Natural    2.9 {txt}{c |}
+ 60. {c |} {res}New Providence     Natural    2.8 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 61. {c |} {res}New Providence   Disturbed    6.2 {txt}{c |}
+ 62. {c |} {res}New Providence   Disturbed    5.8 {txt}{c |}
+ 63. {c |} {res}New Providence   Disturbed      5 {txt}{c |}
+ 64. {c |} {res}New Providence   Disturbed    5.6 {txt}{c |}
+ 65. {c |} {res}New Providence   Disturbed      3 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 66. {c |} {res}New Providence   Disturbed    7.4 {txt}{c |}
+ 67. {c |} {res}New Providence   Disturbed    3.6 {txt}{c |}
+ 68. {c |} {res}New Providence   Disturbed    4.2 {txt}{c |}
+ 69. {c |} {res}New Providence   Disturbed    3.8 {txt}{c |}
+ 70. {c |} {res}New Providence   Disturbed    6.3 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 71. {c |} {res}New Providence   Disturbed    6.4 {txt}{c |}
+ 72. {c |} {res}New Providence   Disturbed    4.4 {txt}{c |}
+ 73. {c |} {res}New Providence   Disturbed    6.6 {txt}{c |}
+ 74. {c |} {res}New Providence   Disturbed    5.9 {txt}{c |}
+ 75. {c |} {res}New Providence   Disturbed      3 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 76. {c |} {res}New Providence   Disturbed    5.8 {txt}{c |}
+ 77. {c |} {res}New Providence   Disturbed    4.8 {txt}{c |}
+ 78. {c |} {res}New Providence   Disturbed      5 {txt}{c |}
+ 79. {c |} {res}New Providence   Disturbed    4.4 {txt}{c |}
+ 80. {c |} {res}New Providence   Disturbed    5.4 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 81. {c |} {res} Harbor Island     Natural    3.3 {txt}{c |}
+ 82. {c |} {res} Harbor Island     Natural    4.9 {txt}{c |}
+ 83. {c |} {res} Harbor Island     Natural    3.2 {txt}{c |}
+ 84. {c |} {res} Harbor Island     Natural    5.3 {txt}{c |}
+ 85. {c |} {res} Harbor Island     Natural    4.9 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 86. {c |} {res} Harbor Island     Natural    5.2 {txt}{c |}
+ 87. {c |} {res} Harbor Island     Natural    4.4 {txt}{c |}
+ 88. {c |} {res} Harbor Island     Natural    3.8 {txt}{c |}
+ 89. {c |} {res} Harbor Island     Natural    3.9 {txt}{c |}
+ 90. {c |} {res} Harbor Island     Natural    3.3 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 91. {c |} {res} Harbor Island     Natural      5 {txt}{c |}
+ 92. {c |} {res} Harbor Island     Natural    4.4 {txt}{c |}
+ 93. {c |} {res} Harbor Island     Natural    5.8 {txt}{c |}
+ 94. {c |} {res} Harbor Island     Natural    4.2 {txt}{c |}
+ 95. {c |} {res} Harbor Island     Natural    2.7 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 96. {c |} {res} Harbor Island     Natural    4.8 {txt}{c |}
+ 97. {c |} {res} Harbor Island     Natural    5.2 {txt}{c |}
+ 98. {c |} {res} Harbor Island     Natural    4.6 {txt}{c |}
+ 99. {c |} {res} Harbor Island     Natural      4 {txt}{c |}
+100. {c |} {res} Harbor Island     Natural    5.8 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+101. {c |} {res} Harbor Island   Disturbed    6.8 {txt}{c |}
+102. {c |} {res} Harbor Island   Disturbed    7.8 {txt}{c |}
+103. {c |} {res} Harbor Island   Disturbed    4.4 {txt}{c |}
+104. {c |} {res} Harbor Island   Disturbed    5.2 {txt}{c |}
+105. {c |} {res} Harbor Island   Disturbed    5.8 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+106. {c |} {res} Harbor Island   Disturbed    5.4 {txt}{c |}
+107. {c |} {res} Harbor Island   Disturbed    3.4 {txt}{c |}
+108. {c |} {res} Harbor Island   Disturbed    5.3 {txt}{c |}
+109. {c |} {res} Harbor Island   Disturbed    7.6 {txt}{c |}
+110. {c |} {res} Harbor Island   Disturbed      6 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+111. {c |} {res} Harbor Island   Disturbed    4.8 {txt}{c |}
+112. {c |} {res} Harbor Island   Disturbed    6.3 {txt}{c |}
+113. {c |} {res} Harbor Island   Disturbed    5.3 {txt}{c |}
+114. {c |} {res} Harbor Island   Disturbed    6.2 {txt}{c |}
+115. {c |} {res} Harbor Island   Disturbed    5.5 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+116. {c |} {res} Harbor Island   Disturbed    6.9 {txt}{c |}
+117. {c |} {res} Harbor Island   Disturbed    4.8 {txt}{c |}
+118. {c |} {res} Harbor Island   Disturbed      6 {txt}{c |}
+119. {c |} {res} Harbor Island   Disturbed    6.8 {txt}{c |}
+120. {c |} {res} Harbor Island   Disturbed    4.6 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+121. {c |} {res}     Eleuthera     Natural      4 {txt}{c |}
+122. {c |} {res}     Eleuthera     Natural    3.3 {txt}{c |}
+123. {c |} {res}     Eleuthera     Natural    3.8 {txt}{c |}
+124. {c |} {res}     Eleuthera     Natural    2.7 {txt}{c |}
+125. {c |} {res}     Eleuthera     Natural    3.2 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+126. {c |} {res}     Eleuthera     Natural    3.4 {txt}{c |}
+127. {c |} {res}     Eleuthera     Natural    3.3 {txt}{c |}
+128. {c |} {res}     Eleuthera     Natural    3.8 {txt}{c |}
+129. {c |} {res}     Eleuthera     Natural    3.8 {txt}{c |}
+130. {c |} {res}     Eleuthera     Natural    3.1 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+131. {c |} {res}     Eleuthera     Natural    4.1 {txt}{c |}
+132. {c |} {res}     Eleuthera     Natural    3.8 {txt}{c |}
+133. {c |} {res}     Eleuthera     Natural      4 {txt}{c |}
+134. {c |} {res}     Eleuthera     Natural    4.5 {txt}{c |}
+135. {c |} {res}     Eleuthera     Natural    4.7 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+136. {c |} {res}     Eleuthera     Natural    4.2 {txt}{c |}
+137. {c |} {res}     Eleuthera     Natural    4.4 {txt}{c |}
+138. {c |} {res}     Eleuthera     Natural    2.9 {txt}{c |}
+139. {c |} {res}     Eleuthera     Natural    3.8 {txt}{c |}
+140. {c |} {res}     Eleuthera     Natural    3.8 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+141. {c |} {res}     Eleuthera   Disturbed      4 {txt}{c |}
+142. {c |} {res}     Eleuthera   Disturbed    3.6 {txt}{c |}
+143. {c |} {res}     Eleuthera   Disturbed    3.4 {txt}{c |}
+144. {c |} {res}     Eleuthera   Disturbed    3.8 {txt}{c |}
+145. {c |} {res}     Eleuthera   Disturbed    7.4 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+146. {c |} {res}     Eleuthera   Disturbed    4.2 {txt}{c |}
+147. {c |} {res}     Eleuthera   Disturbed    4.8 {txt}{c |}
+148. {c |} {res}     Eleuthera   Disturbed    4.5 {txt}{c |}
+149. {c |} {res}     Eleuthera   Disturbed    4.6 {txt}{c |}
+150. {c |} {res}     Eleuthera   Disturbed    3.6 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+151. {c |} {res}     Eleuthera   Disturbed    5.2 {txt}{c |}
+152. {c |} {res}     Eleuthera   Disturbed    3.5 {txt}{c |}
+153. {c |} {res}     Eleuthera   Disturbed    3.4 {txt}{c |}
+154. {c |} {res}     Eleuthera   Disturbed    6.3 {txt}{c |}
+155. {c |} {res}     Eleuthera   Disturbed    6.5 {txt}{c |}
+     {c LT}{hline 16}{c -}{hline 11}{c -}{hline 6}{c RT}
+156. {c |} {res}     Eleuthera   Disturbed    6.2 {txt}{c |}
+157. {c |} {res}     Eleuthera   Disturbed    4.6 {txt}{c |}
+158. {c |} {res}     Eleuthera   Disturbed    3.3 {txt}{c |}
+159. {c |} {res}     Eleuthera   Disturbed    5.4 {txt}{c |}
+160. {c |} {res}     Eleuthera   Disturbed    3.7 {txt}{c |}
+     {c BLC}{hline 16}{c -}{hline 11}{c -}{hline 6}{c BRC}
+
+{com}. list island_str habitat_str mass in 1/10
+{txt}
+     {c TLC}{hline 10}{c -}{hline 10}{c -}{hline 6}{c TRC}
+     {c |} {res}island~r   habita~r   mass {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 10}{c -}{hline 6}{c RT}
+  1. {c |} {res}   Exuma    Natural    4.8 {txt}{c |}
+  2. {c |} {res}   Exuma    Natural    2.7 {txt}{c |}
+  3. {c |} {res}   Exuma    Natural    4.7 {txt}{c |}
+  4. {c |} {res}   Exuma    Natural    4.3 {txt}{c |}
+  5. {c |} {res}   Exuma    Natural    5.9 {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 10}{c -}{hline 6}{c RT}
+  6. {c |} {res}   Exuma    Natural    2.8 {txt}{c |}
+  7. {c |} {res}   Exuma    Natural    4.2 {txt}{c |}
+  8. {c |} {res}   Exuma    Natural    3.8 {txt}{c |}
+  9. {c |} {res}   Exuma    Natural    3.8 {txt}{c |}
+ 10. {c |} {res}   Exuma    Natural    4.9 {txt}{c |}
+     {c BLC}{hline 10}{c -}{hline 10}{c -}{hline 6}{c BRC}
+
+{com}. list island_str habitat_str mass if mass>3 in 1/10
+{txt}
+     {c TLC}{hline 10}{c -}{hline 10}{c -}{hline 6}{c TRC}
+     {c |} {res}island~r   habita~r   mass {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 10}{c -}{hline 6}{c RT}
+  1. {c |} {res}   Exuma    Natural    4.8 {txt}{c |}
+  3. {c |} {res}   Exuma    Natural    4.7 {txt}{c |}
+  4. {c |} {res}   Exuma    Natural    4.3 {txt}{c |}
+  5. {c |} {res}   Exuma    Natural    5.9 {txt}{c |}
+  7. {c |} {res}   Exuma    Natural    4.2 {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 10}{c -}{hline 6}{c RT}
+  8. {c |} {res}   Exuma    Natural    3.8 {txt}{c |}
+  9. {c |} {res}   Exuma    Natural    3.8 {txt}{c |}
+ 10. {c |} {res}   Exuma    Natural    4.9 {txt}{c |}
+     {c BLC}{hline 10}{c -}{hline 10}{c -}{hline 6}{c BRC}
+
+{com}. list island_str habitat_str mass if mass>3 & island==2
+{txt}
+     {c TLC}{hline 10}{c -}{hline 11}{c -}{hline 6}{c TRC}
+     {c |} {res}island~r   habitat~r   mass {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 11}{c -}{hline 6}{c RT}
+  1. {c |} {res}   Exuma     Natural    4.8 {txt}{c |}
+  3. {c |} {res}   Exuma     Natural    4.7 {txt}{c |}
+  4. {c |} {res}   Exuma     Natural    4.3 {txt}{c |}
+  5. {c |} {res}   Exuma     Natural    5.9 {txt}{c |}
+  7. {c |} {res}   Exuma     Natural    4.2 {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 11}{c -}{hline 6}{c RT}
+  8. {c |} {res}   Exuma     Natural    3.8 {txt}{c |}
+  9. {c |} {res}   Exuma     Natural    3.8 {txt}{c |}
+ 10. {c |} {res}   Exuma     Natural    4.9 {txt}{c |}
+ 11. {c |} {res}   Exuma     Natural    4.7 {txt}{c |}
+ 12. {c |} {res}   Exuma     Natural      5 {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 13. {c |} {res}   Exuma     Natural    4.2 {txt}{c |}
+ 14. {c |} {res}   Exuma     Natural    3.8 {txt}{c |}
+ 15. {c |} {res}   Exuma     Natural    4.2 {txt}{c |}
+ 16. {c |} {res}   Exuma     Natural    5.3 {txt}{c |}
+ 17. {c |} {res}   Exuma     Natural    5.2 {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 18. {c |} {res}   Exuma     Natural    6.2 {txt}{c |}
+ 19. {c |} {res}   Exuma     Natural    4.3 {txt}{c |}
+ 20. {c |} {res}   Exuma     Natural    4.8 {txt}{c |}
+ 21. {c |} {res}   Exuma   Disturbed      6 {txt}{c |}
+ 22. {c |} {res}   Exuma   Disturbed    9.2 {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 23. {c |} {res}   Exuma   Disturbed      5 {txt}{c |}
+ 24. {c |} {res}   Exuma   Disturbed    7.8 {txt}{c |}
+ 25. {c |} {res}   Exuma   Disturbed    7.5 {txt}{c |}
+ 26. {c |} {res}   Exuma   Disturbed    8.6 {txt}{c |}
+ 27. {c |} {res}   Exuma   Disturbed    4.6 {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 28. {c |} {res}   Exuma   Disturbed      7 {txt}{c |}
+ 29. {c |} {res}   Exuma   Disturbed    7.8 {txt}{c |}
+ 30. {c |} {res}   Exuma   Disturbed    4.7 {txt}{c |}
+ 31. {c |} {res}   Exuma   Disturbed    8.4 {txt}{c |}
+ 32. {c |} {res}   Exuma   Disturbed    6.6 {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 33. {c |} {res}   Exuma   Disturbed    4.4 {txt}{c |}
+ 34. {c |} {res}   Exuma   Disturbed      8 {txt}{c |}
+ 35. {c |} {res}   Exuma   Disturbed    7.4 {txt}{c |}
+ 36. {c |} {res}   Exuma   Disturbed    7.8 {txt}{c |}
+ 37. {c |} {res}   Exuma   Disturbed    8.9 {txt}{c |}
+     {c LT}{hline 10}{c -}{hline 11}{c -}{hline 6}{c RT}
+ 38. {c |} {res}   Exuma   Disturbed      9 {txt}{c |}
+ 39. {c |} {res}   Exuma   Disturbed    5.4 {txt}{c |}
+     {c BLC}{hline 10}{c -}{hline 11}{c -}{hline 6}{c BRC}
+
+{com}. codebook island
+
+{txt}{hline}
+{res}island{right:Island}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}byte{txt})
+{ralign 22:Label}: {res:island}
+
+{col 18}Range: [{res}1{txt},{res}4{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}4{col 51}{txt}Missing .: {res}0{txt}/{res}160
+
+{txt}{col 13}Tabulation: Freq.   Numeric  Label
+{col 20}{res}        40{col 32}       1{col 42}{txt}Eleuthera
+{col 20}{res}        39{col 32}       2{col 42}{txt}Exuma
+{col 20}{res}        40{col 32}       3{col 42}{txt}Harbor Island
+{col 20}{res}        41{col 32}       4{col 42}{txt}New Providence
+
+{com}. browse island_str habitat_str mass if mass>3 & island==2
+
+. summarize
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 2}island_str {c |}{res}          0
+{txt}{space 1}habitat_str {c |}{res}          0
+{txt}{space 8}mass {c |}{res}        160    4.769375    1.523898          2        9.2
+{txt}{space 9}svl {c |}{res}        160     54.5875    4.623413         45         67
+{txt}{space 4}hindlimb {c |}{res}        160    12.77562    1.371073        9.6       16.4
+{txt}{hline 13}{c +}{hline 57}
+{space 4}hindspan {c |}{res}        160    28.69875    2.463775       23.3         35
+{txt}{space 4}forelimb {c |}{res}        160       8.475    .9507362          6       11.2
+{txt}{space 4}forespan {c |}{res}        160    24.59938    2.204954       19.9       30.6
+{txt}{space 8}gape {c |}{res}        160    8.910625    .8496094          7       10.9
+{txt}{space 8}head {c |}{res}        160    5.059375    .4774535          4        6.4
+{txt}{hline 13}{c +}{hline 57}
+{space 6}toepad {c |}{res}        160     1.14625    .1516731         .7        1.6
+{txt}{space 8}tail {c |}{res}         98    98.79592    9.797916         78        122
+{txt}{space 7}total {c |}{res}         98    153.8265    13.99339        123        189
+{txt}{space 6}island {c |}{res}        160      2.5125    1.127068          1          4
+{txt}{space 5}habitat {c |}{res}        160     1.50625    .5015307          1          2
+
+{com}. summarize mass, detail
+
+                          {txt}Mass (g)
+{hline 61}
+      Percentiles      Smallest
+ 1%    {res}      2.2              2
+{txt} 5%    {res}     2.75            2.2
+{txt}10%    {res}        3            2.4       {txt}Obs         {res}        160
+{txt}25%    {res}      3.7            2.6       {txt}Sum of wgt. {res}        160
+
+{txt}50%    {res}     4.55                      {txt}Mean          {res} 4.769375
+                        {txt}Largest       Std. dev.     {res} 1.523898
+{txt}75%    {res}      5.7            8.6
+{txt}90%    {res}     6.95            8.9       {txt}Variance      {res} 2.322264
+{txt}95%    {res}      7.8              9       {txt}Skewness      {res} .7834725
+{txt}99%    {res}        9            9.2       {txt}Kurtosis      {res} 3.185887
+
+{com}. graph bar (count), over(habitat_str) over(island_str)
+{res}
+{com}. graph bar (count), over(habitat_str) over(island_str) asyvars
+{res}
+{com}. graph bar (count), over(habitat_str) over(island_str) asyvars ytitle("Number of lizards")
+{res}
+{com}. graph bar (count), over(habitat_str) over(island_str) asyvars ytitle("Number of lizards") title("Number of lizards by island and habitat")
+{res}
+{com}. graph bar (count), over(habitat_str) over(island_str) asyvars blabel(bar) ytitle("Number of lizards") title("Number of lizards by island and habitat")
+{res}
+{com}. graph bar (count), over(habitat_str) over(island_str, label(angle(forty_five))) asyvars blabel(bar) ytitle("Number of lizards") title("Number of lizards by island and habitat")
+{res}
+{com}. {res}{com}graph save "Graph" "C:\Users\Training\Documents\Amstat\2026\bar1.gph"
+{res}{txt}file {bf:C:\Users\Training\Documents\Amstat\2026\bar1.gph} saved
+{com}graph use bar1
+{res}
+{com}. graph bar (mean) mass, over(habitat_str) over(island_str, label(angle(forty_five))) asyvars blabel(bar) ytitle("Number of lizards") title("Number of lizards by island and habitat")
+{res}
+{com}. graph bar (mean) mass, over(habitat_str) over(island_str, label(angle(forty_five))) asyvars blabel(bar) ytitle("Average mass (g)") title("Number of lizards by island and habitat")
+{res}
+{com}. graph bar (mean) mass, over(habitat_str) over(island_str, label(angle(forty_five))) asyvars blabel(bar) ytitle("Average mass (g)") title("Mass by island and habitat")
+{res}
+{com}. graph bar (mean) mass, over(habitat_str) over(island_str, label(angle(forty_five))) asyvars blabel(bar, format(%4.2f)) ytitle("Average mass (g)") title("Mass by island and habitat")
+{res}
+{com}. graph bar (mean) hindlimb hindspan forelimb forespan
+{res}
+{com}. graph bar (mean) hindlimb hindspan forelimb forespan, over(island_str)
+{res}
+{com}. graph bar (mean) hindlimb hindspan forelimb forespan, over(island_str) ascategory
+{res}
+{com}. graph bar (mean) hindlimb hindspan forelimb forespan, over(island_str) groupyvars
+{res}
+{com}. graph bar (mean) hindlimb hindspan forelimb forespan, over(island_str, label(angle(forty_five))) groupyvars
+{res}
+{com}. graph bar (mean) hindlimb hindspan forelimb forespan, over(island_str, relabel(1 "Hindlimb" 2 "Hindspan" 3 "Forelimb" 4 "Forespan") label(angle(forty_five))) groupyvars
+{res}
+{com}. graph bar (mean) hindlimb hindspan forelimb forespan, over(island_str, relabel(1 "Hindlimb" 2 "Hindspan" 3 "Forelimb" 4 "Forespan")) groupyvars
+{res}
+{com}. graph bar (mean) hindlimb hindspan forelimb forespan, over(island_str, relabel(1 "Hindlimb" 2 "Hindspan" 3 "Forelimb" 4 "Forespan")) over(habitat_str) groupyvars
+{res}
+{com}. graph bar (mean) hindlimb hindspan forelimb forespan, over(island_str, relabel(1 "Hindlimb" 2 "Hindspan" 3 "Forelimb" 4 "Forespan")) groupyvars by(habitat_str)
+{res}
+{com}. graph bar (mean) hindlimb hindspan forelimb forespan, over(habitat_str, relabel(1 "Hindlimb" 2 "Hindspan" 3 "Forelimb" 4 "Forespan")) groupyvars by(island_str)
+{res}
+{com}. graph bar (mean) hindlimb hindspan forelimb forespan, over(habitat_str, relabel(1 "Hindlimb" 2 "Hindspan" 3 "Forelimb" 4 "Forespan") label(angle(forty_five))) groupyvars by(island_str)
+{res}
+{com}. histogram mass
+{txt}(bin={res}12{txt}, start={res}2{txt}, width={res}.6{txt})
+{res}
+{com}. histogram mass, bin(10)
+{txt}(bin={res}10{txt}, start={res}2{txt}, width={res}.72{txt})
+{res}
+{com}. histogram mass, bin(20)
+{txt}(bin={res}20{txt}, start={res}2{txt}, width={res}.36{txt})
+{res}
+{com}. histogram mass, discrete
+{txt}(start={res}2{txt}, width={res}.0999999{txt})
+{res}
+{com}. histogram mass, width(.5)
+{txt}(bin={res}15{txt}, start={res}2{txt}, width={res}.5{txt})
+{res}
+{com}. histogram mass, width(.5) normal
+{txt}(bin={res}15{txt}, start={res}2{txt}, width={res}.5{txt})
+{res}
+{com}. histogram mass, width(.5) normal kdensity
+{txt}(bin={res}15{txt}, start={res}2{txt}, width={res}.5{txt})
+{res}
+{com}. dotplot mass, over(habitat_str)
+{res}
+{com}. ssc install stripplot
+{txt}checking {hilite:stripplot} consistency and verifying not already installed...
+all files already exist and are up to date.
+
+{com}. help stripplot
+
+. stripplot mass, over(habitat_str) stack
+{res}
+{com}. stripplot mass, over(habitat_str) stack msymbol(circle)
+{res}
+{com}. generate lizard = "🦎"
+
+. stripplot mass, over(habitat_str) stack msymbol(none) mlabel(lizard)
+{res}
+{com}. {res}{com}stripplot mass, over(habitat_str) stack msymbol(none) mlabel(lizard)
+{res}
+{com}. {res}{com}stripplot mass, over(habitat_str) stack msymbol(none) mlabel(lizard) play(lizards)
+{res}
+{com}. {res}{com}help cond()
+
+. generate class_pred = cond(mass<=6.25,2,1)
+
+. codebook habitat
+
+{txt}{hline}
+{res}habitat{right:Habitat}
+{txt}{hline}
+
+{col 19}Type: Numeric ({res}byte{txt})
+{ralign 22:Label}: {res:habitat}
+
+{col 18}Range: [{res}1{txt},{res}2{txt}]{col 55}Units: {res}1
+{col 10}{txt}Unique values: {res}2{col 51}{txt}Missing .: {res}0{txt}/{res}160
+
+{txt}{col 13}Tabulation: Freq.   Numeric  Label
+{col 20}{res}        79{col 32}       1{col 42}{txt}Disturbed
+{col 20}{res}        81{col 32}       2{col 42}{txt}Natural
+
+{com}. label values class_pred habitat
+
+. tabulate habitat class_pred
+
+           {txt}{c |}      class_pred
+   Habitat {c |} Disturbed    Natural {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+ Disturbed {c |}{res}        26         53 {txt}{c |}{res}        79 
+{txt}   Natural {c |}{res}         0         81 {txt}{c |}{res}        81 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        26        134 {txt}{c |}{res}       160 
+
+{com}. replace class_pred = cond(mass<=5.25,2,1)
+{txt}(24 real changes made)
+
+{com}. tabulate habitat class_pred
+
+           {txt}{c |}      class_pred
+   Habitat {c |} Disturbed    Natural {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+ Disturbed {c |}{res}        44         35 {txt}{c |}{res}        79 
+{txt}   Natural {c |}{res}         6         75 {txt}{c |}{res}        81 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        50        110 {txt}{c |}{res}       160 
+
+{com}. replace class_pred = cond(mass<=4.25,2,1)
+{txt}(41 real changes made)
+
+{com}. tabulate habitat class_pred
+
+           {txt}{c |}      class_pred
+   Habitat {c |} Disturbed    Natural {c |}     Total
+{hline 11}{c +}{hline 22}{c +}{hline 10}
+ Disturbed {c |}{res}        63         16 {txt}{c |}{res}        79 
+{txt}   Natural {c |}{res}        28         53 {txt}{c |}{res}        81 
+{txt}{hline 11}{c +}{hline 22}{c +}{hline 10}
+     Total {c |}{res}        91         69 {txt}{c |}{res}       160 
+
+{com}. twoway (scatter mass head)
+{res}
+{com}. twoway (scatter mass head) (lfit mass head)
+{res}
+{com}. regress mass head
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}       160
+{txt}{hline 13}{c +}{hline 34}   F(1, 158)       = {res}   126.38
+{txt}       Model {c |} {res}  164.09119         1   164.09119   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 205.148748       158   1.2984098   {txt}R-squared       ={res}    0.4444
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.4409
+{txt}       Total {c |} {res} 369.239938       159  2.32226376   {txt}Root MSE        =   {res} 1.1395
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}        mass{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 8}head {c |}{col 14}{res}{space 2} 2.127713{col 26}{space 2} .1892676{col 37}{space 1}   11.24{col 46}{space 3}0.000{col 54}{space 4} 1.753892{col 67}{space 3} 2.501533
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-5.995521{col 26}{space 2} .9618036{col 37}{space 1}   -6.23{col 46}{space 3}0.000{col 54}{space 4}-7.895172{col 67}{space 3} -4.09587
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. {res}{com}graph export "C:\Users\Training\Documents\Amstat\2026\scatter.png", as(png) name("Graph")
+{txt}{p 0 4 2}
+file {bf}
+C:\Users\Training\Documents\Amstat\2026\scatter.png{rm}
+saved as
+PNG
+format
+{p_end}
+{com}twoway (scatter mass head, colorvar(habitat) colordiscrete coloruseplegend)
+{res}
+{com}. twoway (scatter mass head, colorvar(habitat) colordiscrete colorlist(stc1 stc2) coloruseplegend)
+{res}
+{com}. twoway (scatter mass head, colorvar(habitat) colordiscrete colorlist(stc1 stc2) coloruseplegend) (lfit mass head)
+{res}
+{com}. twoway (scatter mass head, colorvar(habitat) colordiscrete colorlist(stc1 stc2) coloruseplegend) (lfit mass head if habitat==2)
+{res}
+{com}. twoway (scatter mass head, colorvar(habitat) colordiscrete colorlist(stc1 stc2) coloruseplegend) (lfit mass head if habitat==2) (lfit mass head if habitat==1)
+{res}
+{com}. {res}{com}twoway (scatter mass head, colorvar(habitat) colordiscrete colorlist(stc1 stc2) coloruseplegend) (lfit mass head if habitat==2) (lfit mass head if habitat==1) , play(scatter)
+{res}
+{com}. graph export twolines.png
+{txt}{p 0 4 2}
+file {bf}
+twolines.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. help graph export
+
+. graph export twolines.png, width(1000) replace
+{txt}{p 0 4 2}
+file {bf}
+twolines.png{rm}
+saved as
+PNG
+format
+{p_end}
+
+{com}. use "https://www.stata.com/k12data/icecream.dta"
+{err}no; dataset in memory has changed since last saved
+{txt}{search r(4), local:r(4);}
+
+{com}. clear
+
+. use "https://www.stata.com/k12data/icecream.dta"
+{txt}(Ice cream consumption)
+
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\Training\Documents\Amstat\2026\amstat26.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}20 Oct 2026, 19:00:31
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
